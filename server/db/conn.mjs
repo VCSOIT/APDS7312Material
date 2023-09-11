@@ -1,11 +1,19 @@
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config();
 
-const connectionString = "mongodb+srv://sarinatill18:sarinacm@cluster0.mip3zez.mongodb.net/" ;
+
+const variable = process.env.MONGO_CONN_STRING;
+console.log(variable);
+
+
+//const connectionString = "mongodb+srv://sarinatill18:sarinacm@cluster0.mip3zez.mongodb.net/" ;
+                         
 //console.log(connectionString);
 //const connectionString = process.env.ATLAS_URI;
 //console.log(connectionString);
 
-const client = new MongoClient(connectionString);
+const client = new MongoClient(variable);
 
 let conn;
 try {
