@@ -30,10 +30,12 @@ jobs:
          - run: |
             sudo apt-get update
             sudo apt install npm
-            sudo node server.mjs  
             sudo npm install 
             sudo npm install create-react-app
             sudo npm install express
+            cd server
+            find . 
+            node server.mjs
 
   sonarqube:
       working_directory: ~/build
