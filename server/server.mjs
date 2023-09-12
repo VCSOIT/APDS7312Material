@@ -4,13 +4,18 @@ import "./loadEnvironment.mjs";
 import https from "https";
 import path from "path";
 import fs from "fs";
+import dotenv from "dotenv";
+dotenv.config();
 
 
+const cert = process.env.CERT;
+const  key  = process.env.PRIVAT_KEY
+console.log(cert + " CERT AND KEY  " + key)
 
 
 const options = {
-  key: fs.readFileSync("keys/private-key.pem"),                  //Change Private Key Path here
-  cert: fs.readFileSync("keys/certificate.pem"),            //Change Main Certificate Path here
+  key: fs.readFileSync(key),                  //Change Private Key Path here
+  cert: fs.readFileSync(cert),            //Change Main Certificate Path here
   }
 
 

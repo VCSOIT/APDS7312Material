@@ -18,6 +18,18 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
+  build_app:
+      working_directory: ~/build  
+      docker:
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/configuration-reference/#steps   
+      steps:
+         - run: find . 
+         - run: |
+            cd /server
+            node server.mjs   
+
   sonarqube:
       working_directory: ~/build
       docker:
@@ -49,5 +61,5 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
+      - build_app
       - sonarqube

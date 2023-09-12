@@ -7,6 +7,7 @@ const variable = process.env.MONGO_CONN_STRING;
 console.log(variable);
 
 
+
 //const connectionString = "mongodb+srv://sarinatill18:sarinacm@cluster0.mip3zez.mongodb.net/" ;
                          
 //console.log(connectionString);
