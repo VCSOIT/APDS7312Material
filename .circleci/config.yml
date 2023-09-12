@@ -37,6 +37,7 @@ jobs:
          - run: | 
             cd server
             find . 
+            echo $MONGO_CONN_STRING
             sudo node server.mjs
 
   sonarqube:
