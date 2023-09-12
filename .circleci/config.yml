@@ -29,6 +29,8 @@ jobs:
          - run: find . 
          - run: |
             sudo apt-get update
+            sudo apt install -y curl
+            curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -    
             sudo apt install npm
             sudo npm install create-react-app
             npm install mongodb express cors dotenv
