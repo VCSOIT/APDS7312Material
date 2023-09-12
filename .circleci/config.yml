@@ -28,8 +28,11 @@ jobs:
          - checkout
          - run: find . 
          - run: |
-            
-            node server.mjs   
+            apt install npm
+            node server.mjs  
+            npm install 
+            npm install create-react-app
+            npm install express
 
   sonarqube:
       working_directory: ~/build
