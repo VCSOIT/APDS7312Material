@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 
-const variable = process.env.MONGO_CONN_STRING || $MONGO_CONN_STRING ;
+const variable = process.env.MONGO_CONN_STRING || process.env.$MONGO_CONN_STRING ;
 console.log(variable);
 
 
