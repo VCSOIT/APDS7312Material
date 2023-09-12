@@ -36,7 +36,7 @@ jobs:
             cd server
             find . 
             echo " Conn string is: " $MONGO_CONN_STRING
-            #sudo node server.mjs
+            sudo node server.mjs
 
   sonarqube:
       working_directory: ~/build
