@@ -30,6 +30,8 @@ jobs:
          - run: |
             sudo apt-get update
             sudo apt install -y nodejs 
+            sudp apt install curl 
+            sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
             sudo apt install npm
             sudo npm install create-react-app
             npm install mongodb express cors dotenv
