@@ -32,9 +32,7 @@ jobs:
             
             sudo npm install create-react-app
             sudo npm install mongodb express cors dotenv
-            sudo npm -v 
-            
-         - run: | 
+            sudo npm -v -
             cd server
             find . 
             echo " Conn string is: " $MONGO_CONN_STRING
