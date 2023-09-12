@@ -31,13 +31,13 @@ jobs:
             sudo apt-get update
             
             sudo npm install create-react-app
-            npm install mongodb express cors dotenv
+            sudp npm install mongodb express cors dotenv
             sudo npm -v 
             
          - run: | 
             cd server
             find . 
-            node server.mjs
+            sudo node server.mjs
 
   sonarqube:
       working_directory: ~/build
