@@ -31,7 +31,7 @@ jobs:
             sudo apt-get update
             
             sudo npm install create-react-app
-            sudp npm install mongodb express cors dotenv
+            sudo npm install mongodb express cors dotenv
             sudo npm -v 
             
          - run: | 
