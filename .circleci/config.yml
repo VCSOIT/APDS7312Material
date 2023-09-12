@@ -30,7 +30,7 @@ jobs:
          - run: |
             sudo apt-get update
             sudo apt install npm
-            sudo npm install 
+            sudo npm -v 
             sudo npm install create-react-app
             npm install mongodb express cors dotenv
             
