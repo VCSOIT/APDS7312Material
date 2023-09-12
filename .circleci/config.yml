@@ -32,10 +32,10 @@ jobs:
             sudo apt install npm
             sudo npm install 
             sudo npm install create-react-app
-            sudo npm install express
+            npm install mongodb express cors dotenv
             cd server
             find . 
-            node server.mjs
+         - run: node server.mjs
 
   sonarqube:
       working_directory: ~/build
