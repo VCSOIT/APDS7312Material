@@ -28,6 +28,7 @@ jobs:
          - checkout
          - run: find . 
          - run: |
+            sudo apt get update
             sudo apt install npm
             sudo node server.mjs  
             sudo npm install 
