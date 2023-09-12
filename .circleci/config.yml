@@ -28,11 +28,11 @@ jobs:
          - checkout
          - run: find . 
          - run: |
-            apt install npm
-            node server.mjs  
-            npm install 
-            npm install create-react-app
-            npm install express
+            sudo apt install npm
+            sudo node server.mjs  
+            sudo npm install 
+            sudo npm install create-react-app
+            sudo npm install express
 
   sonarqube:
       working_directory: ~/build
