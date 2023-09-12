@@ -21,7 +21,7 @@ jobs:
   build_app:
       working_directory: ~/build  
       docker:
-      - image: cimg/base:stable
+      - image: cimg/node:20.6.0
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps   
       steps:
@@ -29,10 +29,7 @@ jobs:
          - run: find . 
          - run: |
             sudo apt-get update
-            sudo apt install curl 
-            curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            sudo apt install -y nodejs 
-            sudo apt install npm
+            
             sudo npm install create-react-app
             npm install mongodb express cors dotenv
             sudo npm -v 
