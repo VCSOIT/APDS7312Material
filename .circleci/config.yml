@@ -28,7 +28,7 @@ jobs:
          - checkout
          - run: find . 
          - run: |
-            cd ./server
+            
             node server.mjs   
 
   sonarqube:
