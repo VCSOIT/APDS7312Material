@@ -2,7 +2,21 @@ import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 import jwt from "jsonwebtoken";
+import ExpressBrute  from "express-brute";
 const router = express.Router();
+
+var store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
+var bruteforce = new ExpressBrute(store);
+
+var userBruteforce = new ExpressBrute(store, {
+  freeRetries: 5,
+  minWait: 5*60*1000, // 5 minutes
+  maxWait: 60*60*1000, // 1 hour,
+  failCallback: failCallback,
+  handleStoreError: handleStoreError
+});
+
+
 
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
@@ -36,7 +50,9 @@ router.get("/:id", async (req, res) => {
  
 // });
 
-router.post("/", async (req, res) => {
+//JWT 
+
+router.post("/",bruteforce.prevent, async (req, res) => {
  
   let collection = await db.collection("user");
   let result = await collection.findOne({username:req.body.username});
