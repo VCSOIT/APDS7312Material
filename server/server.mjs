@@ -5,6 +5,7 @@ import https from "https";
 import path from "path";
 import fs from "fs";
 import dotenv from "dotenv";
+import mongoose  from "mongoose";
 dotenv.config();
 
 
@@ -20,6 +21,9 @@ const options = {
 
 
 import records from "./routes/record.mjs";
+import users from "./routes/user.mjs";
+import login from"./routes/login.mjs";
+
 
 const PORT = process.env.PORT || 5050;
 const app = express();
@@ -29,12 +33,16 @@ app.use(express.json());
 
 
 app.use("/record", records);
+app.use("/user", users)
+app.use("/login",login)
 
 let server = https.createServer(options,app)
 
-// app.get('/',(req,res)=>{
-//   res.send('HTTPS in ExpressJS YASSSSSS')
-// })
+  app.get('/record',(req,res)=>{
+    console.log(res)
+    //res.send('HTTPS in ExpressJS YASSSSSS')
+  })
+
 
 //start the Express server
 server.listen(PORT, () => {

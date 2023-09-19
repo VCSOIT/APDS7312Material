@@ -1,9 +1,10 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 dotenv.config();
 
 
-const variable = process.env.MONGO_CONN_STRING || process.env.$MONGO_CONN_STRING ;
+const variable = process.env.MONGO_CONN_STRING 
 console.log(variable);
 
 
@@ -15,6 +16,7 @@ console.log(variable);
 //console.log(connectionString);
 
 const client = new MongoClient(variable);
+//mongoose.connect(variable)
 
 let conn;
 try {
