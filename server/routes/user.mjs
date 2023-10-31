@@ -2,28 +2,16 @@ import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
+import ExpressBrute  from "express-brute";
+import jwt from "jsonwebtoken"; 
+
 const router = express.Router();
 
-// This section will help you get a list of all the records.
-router.get("/", async (req, res) => {
-  let collection = await db.collection("user");
-  let results = await collection.find({}).toArray();
-  console.log(results);
-  res.send(results).status(200);
-});
+var store = new ExpressBrute.MemoryStore(); // stores state locally, 
+var bruteforce = new ExpressBrute(store);
 
-// This section will help you get a single record by id
-router.get("/:id", async (req, res) => {
-  let collection = await db.collection("user");
-  let query = {_id: new ObjectId(req.params.id)};
-  let result = await collection.findOne(query);
 
-  if (!result) res.send("user").status(404);
-  else res.send(result).status(200);
-});
-
-// This section will help you create a new record.
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const password = bcrypt.hash(req.body.password,10)
   let newDocument = {
     username: req.body.username,
@@ -37,6 +25,51 @@ router.post("/", async (req, res) => {
   res.send(result).status(204);
  
 });
+
+
+router.post("/login",bruteforce.prevent, async (req, res) => {
+ try {
+  let password = req.body.password;
+  let collection = await db.collection("user");
+  let result = await collection.findOne({username:req.body.username});
+  
+  
+  console.log("The user you asked for is " ,result);
+
+  if(!result)
+  {
+      return res.status(401).json({ message: "Authentication failed" });
+  }
+
+
+  //check password:
+  let stringy = JSON.stringify(result.password)
+  console.log(password.toString(), stringy);
+  //const passwordMatch = await bcrypt.compare(password.toString(),result.password.toString());
+  
+ 
+
+  // if (!passwordMatch) {
+  //   return res.status(401).json({ message: "Authentication failed" });
+  // }
+
+ // Auth success -> Send token 
+  
+  const token = jwt.sign({username:req.body.username, password  : req.body.password},"this_secret_should_be_longer_than_it_is"
+  ,{expiresIn:"1h"})
+  console.log("your new token is", token)
+
+  res.status(200).json({ message: "Authentication successful", token : token }); 
+  return res.status(204) ,res.send;
+
+} catch(error) {
+  console.error("Login error:", error);
+  res.status(500).json({ message: "Login failed" });
+}
+   
+});
+
+
 
 // This section will help you update a record by id.
 router.patch("/:id", async (req, res) => {
