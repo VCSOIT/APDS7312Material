@@ -8,7 +8,10 @@ class CheckAuth {
  }
 
  checkToken() {
+   
     const token = this.req.headers['authorization'];
+  // const token = this.res.token
+  
     console.log("token from checkauth" , token)
 
     if (!token) {

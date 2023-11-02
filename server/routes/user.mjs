@@ -59,12 +59,14 @@ router.post("/login",bruteforce.prevent, async (req, res) => {
   ,{expiresIn:"1h"})
   console.log("your new token is", token)
 
-  res.status(200).json({ message: "Authentication successful", token : token }); 
-  return res.status(204) ,res.send;
+  
+  res.status(200).json({ message: "Authentication successful", token : token });
+  return res.status(204) 
 
 } catch(error) {
   console.error("Login error:", error);
   res.status(500).json({ message: "Login failed" });
+  res.send(token);
 }
    
 });

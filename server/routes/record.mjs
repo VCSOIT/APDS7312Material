@@ -11,6 +11,7 @@ const router = express.Router();
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
 
+  console.log(req.headers, "GET HEADERS")
   let collection = await db.collection("record");
   let results = await collection.find({}).toArray();
   console.log(results);
@@ -20,6 +21,7 @@ router.get("/", async (req, res) => {
 
 // This section will help you get a single record by id
 router.get("/:id", async (req, res) => {
+  console.log(req.headers, "HEADERS")
   const checkAuth = new CheckAuth(req, res, () => {
   let collection =  db.collection("record");
   let query = {_id: new ObjectId(req.params.id)};
@@ -34,6 +36,7 @@ checkAuth.checkToken();
 
 // This section will help you create a new record.
 router.post("/", async (req, res) => {
+  console.log(req.headers, "POST HEADERS")
   const checkAuth = new CheckAuth(req, res, () => {
 
   let newDocument = {
