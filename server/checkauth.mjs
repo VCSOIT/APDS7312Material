@@ -5,20 +5,31 @@ class CheckAuth {
     this.req = req;
     this.res = res;
     this.next = next;
+
+     console.log("Check Auth fired");
  }
 
  checkToken() {
+
+  console.log("Check Auth fired");
    
-    const token = this.req.headers['authorization'];
+   const token = this.req.headers['authorization'];
   // const token = this.res.token
   
     console.log("token from checkauth" , token)
 
-    if (!token) {
-      return this.res.status(401).send('Access denied. No token provided.');
-    }
+
 
     try {
+
+      if (token == 'undefined' )
+      {
+        console.log("Checking nulls ")
+        return this.res.status(401).send('Access denied. No token provided.');;
+        
+        
+      }
+     
       const decoded = jwt.decode(token, 'secret_this_should_be_longer_than_it_is');
       console.log(decoded);
       this.req.user = decoded;

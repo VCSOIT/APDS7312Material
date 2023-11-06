@@ -13,9 +13,10 @@ var bruteforce = new ExpressBrute(store);
 
 router.post("/signup", async (req, res) => {
   const password = bcrypt.hash(req.body.password,10)
+  console.log(password, "STORED");
   let newDocument = {
     username: req.body.username,
-    password: password, 
+    password:(await password).toString(), 
     
   };
 
@@ -28,9 +29,11 @@ router.post("/signup", async (req, res) => {
 
 
 router.post("/login",bruteforce.prevent, async (req, res) => {
+  let password ="";
  try {
-  let password = req.body.password;
+  password = req.body.password;
   let collection = await db.collection("user");
+  console.log(collection);
   let result = await collection.findOne({username:req.body.username});
   
   
@@ -43,18 +46,19 @@ router.post("/login",bruteforce.prevent, async (req, res) => {
 
 
   //check password:
-  let stringy = JSON.stringify(result.password)
-  console.log(password.toString(), stringy);
-  //const passwordMatch = await bcrypt.compare(password.toString(),result.password.toString());
+
+  console.log("Password from request" + password);
+  console.log("Password from DB", result.password.toString());
+
+  const passwordMatch = await bcrypt.compare(password.toString(),result.password.toString());
   
  
 
-  // if (!passwordMatch) {
-  //   return res.status(401).json({ message: "Authentication failed" });
-  // }
+   if (!passwordMatch) {
+    return res.status(401).json({ message: "Authentication failed" });
+ }
 
- // Auth success -> Send token 
-  
+ else{
   const token = jwt.sign({username:req.body.username, password  : req.body.password},"this_secret_should_be_longer_than_it_is"
   ,{expiresIn:"1h"})
   console.log("your new token is", token)
@@ -63,11 +67,20 @@ router.post("/login",bruteforce.prevent, async (req, res) => {
   res.status(200).json({ message: "Authentication successful", token : token });
   return res.status(204) 
 
+
+ }
+
+ // Auth success -> Send token 
+  
+  
 } catch(error) {
   console.error("Login error:", error);
   res.status(500).json({ message: "Login failed" });
   res.send(token);
+ 
 }
+
+
    
 });
 
